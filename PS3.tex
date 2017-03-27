@@ -1,0 +1,52 @@
+\documentclass[11pt]{article}
+
+\usepackage{subfiles}
+
+\usepackage{deepakhw}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{nameref}
+\usepackage{listings}
+\usepackage[section]{placeins}
+\usepackage[usenames, dvipsnames]{color}
+
+\sisetup{per-mode=symbol-or-fraction}
+\lstset{basicstyle=\ttfamily\footnotesize,breaklines=true,columns=fullflexible,keepspaces=true}
+
+
+\title{Problem Set 3}
+\subtitle{Phys 715}
+\date{2017-04-03}
+\author{Deepak Mallubhotla}
+
+\let\Tr\relax
+\DeclareMathOperator{\Tr}{Sp}
+
+
+% !TeX spellcheck = en_GB
+\newcommand{\onlyinsubfile}[1]{#1}
+\newcommand{\notinsubfile}[1]{}
+
+\begin{document}
+\renewcommand{\onlyinsubfile}[1]{}
+\renewcommand{\notinsubfile}[1]{#1}
+
+
+\maketitle
+
+
+\subfile{problems/Prob1/Prob1}
+
+\subfile{problems/Prob2/Prob2}
+
+\subfile{problems/Prob3/Prob3}
+
+\subfile{problems/Prob4/Prob4}
+
+\subfile{problems/Prob5/Prob5}
+
+\subfile{problems/Prob6/Prob6}
+
+
+\end{document}
