@@ -7,5 +7,3 @@ List of PDFs:
 * [Problem 4](Prob4.pdf)
 * [Problem 5](Prob5.pdf)
 * [Problem 6](Prob6.pdf)
-* [Problem 7](Prob7.pdf)
-* [Problem 8](Prob8.pdf)
