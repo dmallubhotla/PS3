@@ -40,6 +40,7 @@ clean:
 		(cd $$dir; latexmk -C) ;\
 	done;
 	rm docs/*.pdf
+	#rm problems/Prob1/Prob1ScriptOutput.txt
 	
 publish: all parts
 	find . -path ./docs -prune -o -name "*.pdf" -exec cp {} docs \;
