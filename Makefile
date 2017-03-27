@@ -21,7 +21,7 @@ parts: $(SUB_PDFS)
 PS3.pdf: PS3.tex $(SUB_DEPEND) 
 	$(LATEXMK) PS3.tex
 
-.PHONY: tidy clean docs
+.PHONY: tidy clean docs publish
 
 tidy:
 	latexmk -c
