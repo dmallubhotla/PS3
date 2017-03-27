@@ -3,8 +3,11 @@ SUB_DIRS = $(addprefix problems/, $(addsuffix /, $(SUB_NAMES)))
 SUB_PDFS =   $(join $(SUB_DIRS), $(addsuffix .pdf, $(SUB_NAMES)))
 SUB_TEXS = $(SUB_PDFS:.pdf=.tex)
 
-SUB_DEPEND = $(SUB_TEXS)
 
+P1 = problems/Prob1
+PROB1_DEPEND = $(P1)/Prob1ScriptOutput.txt $(P1)/PS3Prob1Script.m
+
+SUB_DEPEND = $(SUB_TEXS) $(PROB1_DEPEND)
 
 LATEXMK = latexmk -use-make -pdf -dvi- -ps- 
 
@@ -12,12 +15,14 @@ all: PS3.pdf
 
 parts: $(SUB_PDFS)
 
-
-
 %.pdf: %.tex
 	cd $(<D); $(LATEXMK) $(<F)
 
-	
+$(P1)/Prob1.pdf: $(P1)/Prob1.tex $(PROB1_DEPEND)
+
+$(P1)/Prob1ScriptOutput.txt: $(P1)/PS3Prob1Script.m
+	wolframscript -f $(P1)/PS3Prob1Script.m
+
 PS3.pdf: PS3.tex $(SUB_DEPEND) 
 	$(LATEXMK) PS3.tex
 

@@ -1,5 +1,7 @@
 \documentclass[../../PS3.tex]{subfiles}
 
+\definecolor{bggrey}{gray}{.9}
+
 \begin{document}
 
 % !TeX spellcheck = en_GB
@@ -55,7 +57,39 @@ To simplify the math a bit, we can notice that maximising $\rho$ should be equiv
 
 Continuing on, pausing only to admire symmetry,
 \begin{align}
-	- \lambda^5 \dv{}{\lambda} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right) &= \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\dv{}{\lambda} \lambda^5 
+	- \lambda^5 \dv{}{\lambda} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right) &= \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\dv{}{\lambda} \lambda^5 \\
+	- \lambda^5 e^{ \frac{\tpi \hbar c }{\kb T \lambda}} \left( -\frac{\tpi \hbar c }{\kb T \lambda^2}\right) &= \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\left(5 \lambda^4\right) \\	
+	\frac{\tpi \hbar c }{\kb T } \lambda^3 e^{ \frac{\tpi \hbar c }{\kb T \lambda}}  &= \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\left(5 \lambda^4\right)
 \end{align}
+
+Defining $y = \frac{\tpi \hbar c }{\kb T }$:
+
+\begin{align}
+	y e^{ \frac{y}{ \lambda}}  &= 5 \lambda \left(e^{ \frac{y}{\lambda}} - 1\right) \\
+	\frac{y}{\lambda} &=  5 \left(1 - e^{-  \frac{y}{\lambda}}\right) 
+\end{align}
+
+\FloatBarrier
+\lstinputlisting[
+	caption=Mathematica script,
+	label=lstng:Prob1:Script,
+	language=Mathematica,
+	breaklines=true,
+	basicstyle=\tiny,
+	backgroundcolor=\color{bggrey},
+	numbers=left
+]{PS3Prob1Script.m}
+\FloatBarrier
+
+\FloatBarrier
+\lstinputlisting[
+	caption=Mathematica output,
+	label=lstng:Prob1:Output,
+	breaklines=true,
+	basicstyle=\tiny,
+	backgroundcolor=\color{bggrey},
+	numbers=left
+]{Prob1ScriptOutput.txt}
+\FloatBarrier
 
 \end{document}
