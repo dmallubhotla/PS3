@@ -7,4 +7,55 @@
 
 We want to find the energy density per volume for blackbody radiation for given wavelength $\lambda$ and temperature $T$.
 
+\subsection*{(a) $\rho(T, \lambda)$}
+
+We can start with the expression for $U$ in terms of an integral over $k$:
+
+\begin{equation}
+	U = 2 \frac{V}{\left(2\pi\right)^3} 4 \pi \hbar c \int_0^\infty \dd{k} k^3 \left(e^{\beta \hbar c k} - 1\right)^{-1}
+\end{equation}
+
+We want this integral in terms of $\lambda$. We use $k = \frac{\tpi}{\lambda}$, and $\dd{k} = - \frac{\tpi}{\lambda^2} \dd{\lambda}$, to rewrite:
+
+\begin{align}
+	U &= 2 \frac{V}{\left(2\pi\right)^3} 4 \pi \hbar c \int_{k=0}^{k=\infty} \dd{k} \left(\frac{\tpi}{\lambda}\right)^3 \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1} \\
+	U &=  2 \frac{V}{\left(2\pi\right)^3} 4 \pi \hbar c \int_{\lambda=\infty}^{\lambda = 0} \left(-\frac{\tpi}{\lambda^2}\right) \dd{\lambda} \left(\frac{\tpi}{\lambda}\right)^3 \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1} \\
+	\frac{U}{V} &=   \frac{\tpi[4]}{\left(\pi\right)^3}  \pi \hbar c \int_{\lambda=\infty}^{\lambda = 0} \left(-\frac{1}{\lambda^2}\right) \dd{\lambda} \left(\frac{1}{\lambda}\right)^3 \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1} \\
+	\frac{U}{V} &= \frac{\tpi[4]}{\pi^2}   \hbar c \int_{\lambda=\infty}^{\lambda = 0} \left(-\frac{1}{\lambda^2}\right) \dd{\lambda} \left(\frac{1}{\lambda}\right)^3 \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1} \\
+	\frac{U}{V} &= - 16 \pi^2 \hbar c \int_{\lambda=\infty}^{\lambda = 0}  \dd{\lambda} \frac{1}{\lambda^5} \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1} \\
+	\frac{U}{V} &= 16 \pi^2 \hbar c \int_{0}^{\infty}  \dd{\lambda} \frac{1}{\lambda^5} \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1}
+\end{align}
+
+We want the energy density per wavelength, so we can identify $\rho$ with the integrand:
+
+\begin{equation}
+	\rho(\lambda,\beta) = 16 \pi^2 \hbar c \frac{1}{\lambda^5} \left(e^{ \frac{\beta \hbar c \tpi}{\lambda}} - 1\right)^{-1}
+\end{equation}
+
+This means 
+
+\begin{equation}
+	\rho(\lambda,T) =  \frac{16 \pi^2 \hbar c}{\lambda^5} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)^{-1}
+\end{equation}
+
+\subsection*{(b) Finding $\lambda$ to maximise $\rho$}
+
+Let's rewrite $\rho$ a bit:
+
+\begin{equation}
+	\rho(\lambda,T) =  \frac{16 \pi^2 \hbar c}{\lambda^5 \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)}
+\end{equation}
+
+To simplify the math a bit, we can notice that maximising $\rho$ should be equivalent to minimising the denominator. Let's do that:
+
+\begin{align}
+	0 &= \dv{}{\lambda} \left( \lambda^5 \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\right) \\
+	0 &= \lambda^5 \dv{}{\lambda} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right) + \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\dv{}{\lambda} \lambda^5 
+\end{align}
+
+Continuing on, pausing only to admire symmetry
+\begin{align}
+	- \lambda^5 \dv{}{\lambda} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right) &= \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)\dv{}{\lambda} \lambda^5 
+\end{align}
+
 \end{document}
