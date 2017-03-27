@@ -10,7 +10,7 @@ Print["Solving equation for Problem 1"]
 
 sols = NSolve[ x == 5(1 - E^(-x)), x]
 
-Print[StringTemplate["Found solutions: `1`"][x /. sols]]
-Write[outFile, StringTemplate["Solutions: `1`"][x /. sols]]
+Print[StringTemplate["Got solutions: `1`"][x /. sols]]
+Write[outFile, StringTemplate["Got solutions: `1`"][x /. sols]]
 
 EndPackage[]
