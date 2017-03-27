@@ -1,6 +1,6 @@
 *.aux
 /*.pdf
-/problems/*.pdf
+/problems/**/*.pdf
 *.log
 *.fdb_latexmk
 *.fls
