@@ -41,6 +41,7 @@ clean:
 	done;
 	rm docs/*.pdf
 	#rm problems/Prob1/Prob1ScriptOutput.txt
+	rm problems/Prob1/images/*.jpg
 	
 publish: all parts
 	find . -path ./docs -prune -o -name "*.pdf" -exec cp {} docs \;
