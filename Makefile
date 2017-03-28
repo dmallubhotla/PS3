@@ -5,7 +5,7 @@ SUB_TEXS = $(SUB_PDFS:.pdf=.tex)
 
 
 P1 = problems/Prob1
-PROB1_DEPEND = $(P1)/Prob1ScriptOutput.txt $(P1)/PS3Prob1Script.m
+PROB1_DEPEND =  $(P1)/images/4000And6000Spectrum.jpg $(P1)/Prob1ScriptOutput.txt $(P1)/PS3Prob1Script.m 
 
 SUB_DEPEND = $(SUB_TEXS) $(PROB1_DEPEND)
 
@@ -20,7 +20,7 @@ parts: $(SUB_PDFS)
 
 $(P1)/Prob1.pdf: $(P1)/Prob1.tex $(PROB1_DEPEND)
 
-$(P1)/Prob1ScriptOutput.txt: $(P1)/PS3Prob1Script.m
+$(P1)/Prob1ScriptOutput.txt $(P1)/images/4000Spectrum.jpg $(P1)/images/6000Spectrum.jpg $(P1)/images/4000And6000Spectrum.jpg: $(P1)/PS3Prob1Script.m
 	wolframscript -f $(P1)/PS3Prob1Script.m
 
 PS3.pdf: PS3.tex $(SUB_DEPEND) 

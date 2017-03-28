@@ -1,8 +1,12 @@
 \documentclass[../../PS3.tex]{subfiles}
 
+
 \definecolor{bggrey}{gray}{.9}
 
+
 \begin{document}
+\graphicspath{{images/}{./problems/Prob1/images/}}
+
 
 % !TeX spellcheck = en_GB
 \section{Sunlight}
@@ -36,7 +40,7 @@ We want the energy density per wavelength, so we can identify $\rho$ with the in
 
 This means 
 
-\begin{equation}
+\begin{equation} \label{eq:P1:rhoans}
 	\rho(\lambda,T) =  \frac{16 \pi^2 \hbar c}{\lambda^5} \left(e^{ \frac{\tpi \hbar c }{\kb T \lambda}} - 1\right)^{-1}
 \end{equation}
 
@@ -69,13 +73,40 @@ Defining $y = \frac{\tpi \hbar c }{\kb T }$:
 	\frac{y}{\lambda} &=  5 \left(1 - e^{-  \frac{y}{\lambda}}\right) 
 \end{align}
 
+I solved this for $\frac{y}{\lambda}$ in Mathematica, giving us two solutions. There's the pathological solution where $\frac{y}{\lambda} = 0$ This corresponds to $\lambda$ going to infinity. Looking back at \eqref{eq:P1:rhoans}, we may find ourselves more interested in the other solution, which we get to be $\frac{y}{\lambda} \approx 4.966$. We can solve this for $\lambda_{\mathrm{max}}$ for a given temperature:
+
+\begin{align}
+	\frac{y}{\lambda_{\mathrm{max}}} &= 4.966 \\
+	\lambda_{\mathrm{max}} &= \frac{y}{4.966} \\
+	\lambda_{\mathrm{max}} &= \frac{\tpi \hbar c }{4.966 \kb T } \label{eq:P1b:lambdamax}
+\end{align}
+
+\subsection*{(c) Solar temperature from $\lambda_\mathrm{max}$}
+
+We're given here that $\lambda_\mathrm{max}$ for sunlight is $\SI{480}{\nano\meter}$, and we want to find the temperature of the radiation-emitting surface of the sun. We can solve \eqref{eq:P1b:lambdamax} for $T$: 
+
+\begin{equation}
+	T = \frac{\tpi \hbar c }{4.966 \kb \lambda_{\mathrm{max}} }
+\end{equation}
+
+I unnecessarily used Mathematica to solve for $T$, giving $T = \SI{6036}{K}$, which seems to be around the number I get when searching around.
+
+\subsection*{(d) Differences between real spectrum and blackbody}
+
+
+\begin{figure}[htp]
+	\centering
+	\includegraphics[width=10cm]{4000And6000Spectrum}
+	\caption{Spectra for $\SI{4000}{K}$, $\SI{5000}{K}$ and $\SI{6000}{K}$}\label{fig:Prob1:4000And6000Spectrum}
+\end{figure}
+
+The mention of the surface of the sun is important for the earlier part, as different layers of the sun are at different temperatures. Some brief searching suggests that the photosphere ranges from $\SI{4000}{K}$ to $\SI{6000}{K}$. Figure \ref{fig:Prob1:4000And6000Spectrum} shows some spectra for this temperature range. The sum of these spectra (depending on the total power at each temperature for the overall scale) may probably look different than the spectrum from just one temperature.
+
 \FloatBarrier
 \lstinputlisting[
 	caption=Mathematica script,
 	label=lstng:Prob1:Script,
 	language=Mathematica,
-	breaklines=true,
-	basicstyle=\tiny,
 	backgroundcolor=\color{bggrey},
 	numbers=left
 ]{PS3Prob1Script.m}
@@ -85,8 +116,6 @@ Defining $y = \frac{\tpi \hbar c }{\kb T }$:
 \lstinputlisting[
 	caption=Mathematica output,
 	label=lstng:Prob1:Output,
-	breaklines=true,
-	basicstyle=\tiny,
 	backgroundcolor=\color{bggrey},
 	numbers=left
 ]{Prob1ScriptOutput.txt}
