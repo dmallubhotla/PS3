@@ -1,8 +1,108 @@
 \documentclass[../../PS3.tex]{subfiles}
 
+\newcommand{\ham}{\mathcal{H}}
+\newcommand{\trm}{\mathcal{T}}
+
 \begin{document}
 
-
 \section{Spin-1 Partition functions}
+
+We're told for this problem that we have a 1-D array of $N$ spins $s_1,\dotsc, s_N$, where $s_i \in \{-1, 0, 1\}$. We're also, importantly, given periodic boundary conditions $s_{N+1} = s_1$.
+Our Hamiltonian has no external field:
+\begin{equation}
+	\ham = - J \sum_{i=1}^{N} s_i s_{i+1}
+\end{equation}
+
+We're asked to effectively find the transfer matrix, and show that the Helmholtz free energy $A$ satisfies
+\begin{equation}
+	A = -N\kb T \log{\lambda_{+}},
+\end{equation}
+where $\lambda_{+}$ is the largest eigenvalue of the transfer matrix $\trm$.
+
+\subsection*{(a) Helmholtz free energy}
+We want to start by finding the partition function $Q$, as we know that $A = -\kb T \log{Q}$.
+For $Q$, summing over all values of each spin:
+\begin{align}
+	Q &= \sum_{s_1} \dotso \sum_{s_N}  e^{-\beta \ham} \\
+	 &= \sum_{s_1} \dotso \sum_{s_N}  e^{-\beta \left(- J \sum_{i=1}^{N} s_i s_{i+1}\right)} \\
+	 &= \sum_{s_1} \dotso \sum_{s_N}  e^{\sum_{i=1}^{N}  \beta J s_i s_{i+1}} \\
+	 &= \sum_{s_1} \dotso \sum_{s_N} \prod_{i=1}^N  e^{\beta J s_i s_{i+1}}
+\end{align}
+This is the point where we can define a matrix $\trm$ such that 
+\begin{equation} \label{eq:Prob6a:trmdef}
+\trm_{ab} = e^{\beta J a b},
+\end{equation} where the indices run over possible spin values. Substituting this in for $Q$ leads to:
+\begin{align}
+	Q &= \sum_{s_1} \dotso \sum_{s_N} \prod_{i=1}^N  \trm_{s_i s_{i+1}} \\
+	&= \sum_{s_1} \dotso \sum_{s_N} \trm_{s_1 s_2} \trm_{s_2 s_3} \dotsm \trm_{s_{N-1} s_N}\trm_{s_N s_1}
+\end{align}
+We recognise this sum over repeated indices as basic matrix multiplication:
+\begin{align}
+	Q &= \sum_{s_1} \trm^N_{s_1 s_1} 
+\end{align}
+It's important here that we had a periodic boundary condition, or we'd have some extra work to do for the first and last spin and the next step wouldn't be possible. We have only the $s_1$ index left to sum over, and we recognise here the trace of $\trm^N$:
+\begin{align}
+	Q &= \Tr \trm^N
+\end{align}
+Why's this good? We know that $\Tr \trm = \sum \lambda_i$, where the $\lambda$ are the eigenvalues of $\trm$, and we also know that $\Tr \trm^N = \sum \lambda_i^N$. As with the examples of the transfer matrix method, we can make the assumption that the three eigenvalues for this Hamiltonian's transfer matrix have a $T$- and $J$- independent order, and name them $\lambda_+$, $\lambda_0$ and $\lambda_-$ (where $\lambda_+ > \lambda_0 > \lambda_-$). Thus we write
+\begin{align}
+	Q &= \Tr \trm^N \\
+	&= \lambda_+^N + \lambda_0^N + \lambda_-^N \\
+	&= \lambda_+^N \left(1 + \left(\frac{\lambda_0}{\lambda_+}\right)^N + \left(\frac{\lambda_-}{\lambda_+}\right)^N \right)
+\end{align} 
+
+For sufficiently large $N$, the quantity in parentheses goes to $1$ (because each parenthesised quantity therein contained goes to 0), so 
+\begin{equation}
+	Q = \lambda_+^N
+\end{equation}
+The Helmholtz free energy is trivial:
+\begin{align}
+	A &= - \kb T \log{Q} \\
+	A &= -\kb T \log\left(\lambda_+^N\right) \\
+	A &= - N \kb T \log \lambda_+
+\end{align}
+This is what we wanted to show for this part.
+
+\subsection*{(b) The components of the transfer matrix}
+
+We can go back to \eqref{eq:Prob6a:trmdef}:, $\trm_{ab} = e^{\beta J a b}$, and recall that $a$ and $b$ ran over the values for the spins, $\{-1 ,0, 1\}$. If either $a$ or $b$ is 0, $\trm_{ab} = 1$, and the other components are only slightly more complicated:
+\begin{align}
+	\trm =
+	\begin{blockarray}{cccc}
+		s=1 & s=0 & s=-1 &  \\
+		\begin{block}{(ccc)c}
+		  e^{\beta  J } & 1 & e^{-\beta  J } & s=1 \\
+		  1 & 1 & 1 & s=0 \\
+		  e^{-\beta  J } & 1 & e^{\beta  J } & s=-1 \\
+		\end{block}
+	\end{blockarray}
+\end{align}
+
+\subsection*{(c) Equation for $\lambda_+$}
+We want to find the eigenvalues of $\trm$. Let's solve our standard equation:
+\begin{align}
+	0 &= \det(\trm - \lambda I)\\
+	&= \det \begin{pmatrix}
+		 e^{\beta  J } - \lambda & 1 & e^{-\beta  J } \\
+		  1 & 1-\lambda & 1 \\
+		  e^{-\beta  J } & 1 & e^{\beta  J } -\lambda \\
+		\end{pmatrix}
+\end{align}
+To spare my fingers the extra typing, we'll define $a = e^{\beta  J }$ and $b = e^{-\beta  J}$.
+\begin{align}
+	0 &= \det \begin{pmatrix}
+		 a - \lambda & 1 & b \\
+		  1 & 1-\lambda & 1 \\
+		  b & 1 & a -\lambda \\
+		\end{pmatrix} \\
+	&= \left(a - \lambda \right) \left( (1-\lambda)(a - \lambda) - 1 \right) - \left(  (a  - \lambda) - b  \right) + b \left(1 - \left(1 - \lambda \right) b \right) \\
+	&= \left(a - \lambda \right) \left( a + \lambda ^2 - \lambda(1 + a) - 1 \right) - a  + \lambda + b + b \left(1 - b + b \lambda  \right) \\
+	&= \left(a - \lambda \right) \left(\lambda ^2  - \lambda(1 + a) + a  - 1 \right) - a  + \lambda + b + b - b^2 + b^2 \lambda \\
+	&= \left(a - \lambda \right) \left(\lambda ^2  - \lambda(1 + a) + a  - 1 \right) +\lambda (1 + b^2)  - a  + 2 b - b^2 \\
+   \begin{split}&= a \lambda^2 - \lambda(a + a^2) + a^2 - a -\lambda^3 + \lambda^2(1 + a) - \lambda a + \lambda \\ &\qquad+\lambda (1 + b^2)  - a  + 2 b - b^2\end{split} \\
+   \begin{split}&= -\lambda^3 + \lambda^2\left(2a + 1\right) + \lambda \left( -a - a^2 -a + 1 + 1 + b^2\right) \\ &\qquad+ a^2 - a - a + 2b - b^2\end{split} \\
+   &= -\lambda^3 + \lambda^2\left(2a + 1\right) + \lambda \left(b^2 - a^2 -2a + 2\right)+ a^2 - b^2 - 2a + 2b
+\end{align}
+This cubic equation seems rather ugly, but not unexpectedly so. I'm sure this can be simplified further by plugging in for $a$ and $b$ and writing some hyperbolic trig functions, but I don't think that helps, particularly given that we're not going to be solving this. It's exactly solvable though, and that's quite cool.
 
 \end{document}
