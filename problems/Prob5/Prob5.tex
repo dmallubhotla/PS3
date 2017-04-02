@@ -4,4 +4,21 @@
 
 \section{1-D Ising Model Long-Range interactions}
 
+For this problem, we want to evaluate the Peierls argument for long-range interactions modelled by the Hamiltonian:
+\begin{equation}
+	\ham = -J \sum_{i\neq j}^N \frac{s_i s_j }{\abs{i-j}^a}
+\end{equation}
+In addition, we're given that $s \in \{-1, 1\}$, and $a > 0$. We want to show that the Peierls argument fails for $a < 2$, meaning that with $a$ in that range, there is indeed a phase transition. 
+
+Like with the original argument, we can find the free energy $A$ for $m = 0$ and $m = 1$. We note that the entropies are unchanged: 
+\begin{align}
+	S_{m = 0} &< \kb \log \frac{N}{2} \\
+	S_{m = 1} &= 0
+\end{align}
+We need to find the energies. For $m = 1$:
+\begin{align}
+	U &=  \sum_{i\neq j}^N \frac{s_i s_j }{\abs{i-j}^a} \\
+	&= \sum_{i\neq j}^N \frac{1}{\abs{i-j}^a} \\
+\end{align}
+
 \end{document}
