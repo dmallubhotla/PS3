@@ -4,4 +4,15 @@
 
 \section{Phase transition of Ideal Bose System}
 
+I think my understanding of this problem was a bit lacking. The lecture notes mention that we should, in order to find $C_V$ above $T_c$, solve the number equation for $\mu(T)$. The number equation, before any assumptions, looks like
+\begin{align}
+	n(\mu, T) = \frac{1}{4\pi^2} \left( \frac{2m}{\hbar^2}\right)^{\flatfrac32} \int_0^\infty \frac{\epsilon^{\flatfrac12} \dd{\epsilon}}{e^{\beta(\epsilon - \mu)} - 1}
+\end{align}
+We also have, I think, that for $T > T_c$, no particles in the ground state. Why is this? I think this just comes out of the definition of $T_c$ as the point where $\mu = 0$: above $T_c$, $\mu < 0$. We had an expression for $n$ at $T_c$:
+\begin{align}
+	n(0, T_c) &= \frac{1}{4\pi^2} \left( \frac{2m}{\hbar^2} \right)^{\flatfrac32} \int_0^\infty \frac{\epsilon^{\flatfrac12} \dd{\epsilon}}{e^{\beta(\epsilon)} - 1} \\
+	&= \frac{1}{4\pi^2} \left( \frac{2m}{\beta \hbar^2} \right)^{\flatfrac32} \zeta (\frac{3}{2} ) \Gamma(\frac{3}{2} )
+\end{align}
+I think that ultimately the right approach to deriving the values for $C_V$ for $T > T_c$ will be to set these expressions equal, and solve for $\mu$. Then, the integrals can be done numerically, which is where I believe the somewhat odd number $3.66$ comes from.
+
 \end{document}
