@@ -83,7 +83,21 @@ and finally
 	&= - T \pdv{}{T} \left( - N \kb \ln(\xi T ^{\flatfrac92}) - N \kb \frac{1}{\xi} \xi \frac9	2  	\right) \\
 	&= T \pdv{}{T} N \kb \ln(\xi T^{\flatfrac92}) \\
 	&= N \kb T \frac{1}{\xi T^{\flatfrac92}} \xi \frac92 T^{\flatfrac72} \\
-	&= \frac92 N \kb
+	C_V &= \frac92 N \kb
 \end{align}
+
+\subsection*{(c) Mean square separation} 
+We want to find the ensemble average for $q^2$, as defined earlier. We already established that the position and momentum integrals separate, so they'll cancel, and we only need to do the integral over q:
+\begin{align}
+	\left<q^2\right> &= \frac{4\pi V \int_0^{\infty} \dd{q} q^2 q^2 e^{-\beta \frac{K}{2} q^2 }} {4\pi V \int_0^{\infty} \dd{q} q^2 e^{-\beta \frac{K}{2} q^2 } } \\
+	&= \frac{\dv[2]{}{\beta} \frac{4}{K^2} \int_0^{\infty} \dd{q} e^{-\beta \frac{K}{2} q^2 }}{\dv{}{\beta} \frac{-2}{K} \int_0^{\infty} \dd{q} e^{-\beta \frac{K}{2} q^2 }} \\
+	&= -\frac{2}{K} \frac{\dv[2]{}{\beta} \sqrt{\frac{\pi}{2 \beta k}}}{\dv{}{\beta} \sqrt{\frac{\pi}{2 \beta K}}} \\
+	&= -\frac{2}{K} \frac{\dv[2]{}{\beta} \sqrt{\frac{1}{ \beta }}}{\dv{}{\beta} \sqrt{\frac{1}{\beta}}} \\
+	&=- \frac{2}{K} \frac{- \dv{}{\beta} \frac12 \beta^{-\flatfrac32}}{-\frac12 \beta^{-\flatfrac32}} \\
+	&= -\frac{2}{K} \frac{ \dv{}{\beta} \beta^{-\flatfrac32}}{ \beta^{-\flatfrac32}} \\
+	&= -\frac{2}{K} \frac{- \frac{3}{2} \beta^{-\flatfrac52}}{ \beta^{-\flatfrac32}} \\
+	&= \frac{3}{\beta K}
+\end{align}
+This gives us our mean square separation. As we'd expect, for higher temperatures, the molecules are further separated.
 
 \end{document}
