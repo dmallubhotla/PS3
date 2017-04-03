@@ -20,5 +20,39 @@ We need to find the energies. For $m = 1$:
 	U &=  \sum_{i\neq j}^N \frac{s_i s_j }{\abs{i-j}^a} \\
 	&= \sum_{i\neq j}^N \frac{1}{\abs{i-j}^a} \\
 \end{align}
+We can approximate this sum with an integral:
+\begin{align}
+	U &\approx \frac{N^2}{L^2} \int_0^{L} \dd{x} \int_0^{L} \dd{y} \frac{1}{\abs{x - y}^a} 
+\end{align}
+We'll end up with nasty divergences if we don't properly attend to the condition in the sum that $i \neq j$. We can go one further, and notice that $i - j$ is never less than $1$ for any allowed terms in the sum. We write
+\begin{align}
+	U &\approx \frac{N^2}{L^2} \int_0^{L} \dd{x} \left( \int_{0}^{x - 1} \dd{y} \frac{1}{(x - y)^a} +  \int_{x + 1}^{L} \dd{y} \frac{1}{(y - x)^a} \right)
+\end{align}
+We'll end up with some weird boundary terms that are possibly wrong, but let's forge a path forward hoping that the assumption that $N$ is large will fix any problems.
+\begin{align}
+	U &= \frac{N^2}{L^2} \int_0^{L} \dd{x} \left( \left. - \frac{(x - y)^{-a + 1}}{-a + 1}  \right|_{0}^{x - 1} +  \left. \frac{(y - x)^{-a + 1}}{-a + 1}  \right|_{x+1}^{L} \right) \\
+	U &= \frac{N^2}{L^2} \int_0^{L} \dd{x} \left(  - \frac{(1)^{-a + 1} - (x)^{-a + 1}}{-a + 1}  +  \frac{(L - x)^{-a + 1} - (1)^{-a + 1}}{-a + 1}  \right) \\
+	U &= \frac{N^2}{L^2} \int_0^{L} \dd{x} \frac{(L - x)^{-a + 1} + x^{-a + 1} - 2}{-a + 1}  \\
+	U &= \frac{N^2}{L^2 (-a + 1)} \int_0^{L} \dd{x} (L - x)^{-a + 1} + x^{-a + 1} - 2 \\
+	U &= \frac{N^2}{L^2 (-a + 1)} \left. \left( \left( -\frac{(L - x)^{-a + 2}}{-a + 2}\right) + \frac{x^{-a + 2}}{-a + 2} - 2L \right)\right|_{x = 0}^{L} \\
+	U &= \frac{N^2}{L^2 (-a + 1)} \left. \left( \frac{(L)^{-a + 2}}{-a + 2} + \frac{L^{-a + 2}}{-a + 2} - 2L \right)\right|_{x = 0}^{L} \\
+	U &= \frac{N^2}{L^2 (-a + 1)} \left( \frac{L^{-a + 2}}{-a + 2} + \frac{L^{-a + 2}}{-a + 2} - 2L \right) \\ 
+	U&= \frac{2 N^2}{L^2 (1 - a)} \left(\frac{L}{2 - a} - \frac{2L - aL}{2 - a} \right) \\
+	U&= \frac{2 N^2}{L^2 (1 - a)} \left(\frac{L}{2 - a} - \frac{2L - aL}{2 - a} \right) \\
+	U&= \frac{2 N^2}{L^2 (1 - a)} \left(\frac{aL - L}{2 - a}  \right) \\
+	U&= \frac{2 N^2}{L} \frac{1}{a - 2}
+\end{align}
+
+Now we need to find $U$ for $m = 0$. Let's assume a domain wall erected halfway, so that $s(x) = 1$ for $x > \frac{L}{2}$ and $s(x) = -1$ for $x < \frac{L}{2}$. We note that there will be terms for $x,y < \frac{L}{2}$ and terms for $x,y > \frac{L}{2}$ These terms don't matter, because they'll be present in both the $m = 0$ and $m = 1$ integrals. We need only integrate for $x > \frac{L}{2}$ and $y < \frac{L}{2}$, and vice versa (and we'll add in a buffer of $\frac12$ on each side, to maintain our inequality back from the sum). 
+
+\begin{align}
+	\Delta U &\approx  \frac{N^2}{L^2}  \int_{\frac{L}{2} + \frac12}^{L} \dd{x} \int_{0}^{\frac{L}{2} - \frac{1}{2}} \dd{y} \frac{-1}{(x - y)^a} \\
+	&=  \frac{N^2}{L^2}  \int_{\frac{L}{2} + \frac12}^{L} \dd{x} \left. \left( \frac{(x - y)^{-a + 1}}{-a + 1} \right) \right|_{0}^{\frac{L}{2} - \frac{1}{2}} \\
+	&=  \frac{N^2}{L^2}  \int_{\frac{L}{2} + \frac12}^{L} \dd{x} \left(  \frac{(x - \frac{L + 1}{2})^{-a + 1}  - x^{-a + 1}}{-a + 1} \right)
+\end{align}
+
+We note at this point that in the end we're going to end up with something all over $-a + 2$, with a form similar to the $U(m = 1)$. which means that the sign of $\Delta U$ (and $\Delta A$) will change for $a < 2$. (And again, the $U(m = 1$ value itself didn't matter so much, because only the difference terms like this one are relevant). This means that the domain wall will go from being energetically disallowed to being energetically favourable. The other term, for $y > x$, will be the same. The dependence on $N$ means that for large enough $N$, this will dominate the effect of the change in entropy, which was important for the Peierls argument. 
+
+
 
 \end{document}
