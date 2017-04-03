@@ -17,7 +17,7 @@ parts: $(SUB_PDFS)
 
 %.pdf: %.tex
 	cd $(<D); $(LATEXMK) $(<F)
-
+	
 $(P1)/Prob1.pdf: $(P1)/Prob1.tex $(PROB1_DEPEND)
 
 $(P1)/Prob1ScriptOutput.txt $(P1)/images/4000Spectrum.jpg $(P1)/images/6000Spectrum.jpg $(P1)/images/4000And6000Spectrum.jpg: $(P1)/PS3Prob1Script.m

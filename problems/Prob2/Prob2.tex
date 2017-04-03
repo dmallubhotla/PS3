@@ -29,37 +29,54 @@ This becomes
 	Q &= \left( 2 \pi \int_{-1}^{1} \dd(\cos{\theta}) e^{\beta H\mu \cos{\theta}} \right)^{N} \\
 	Q &= \left( 2 \pi \frac{1}{\beta H \mu} \left. e^{\beta H\mu \cos{\theta}} \right|_{-1}^{1} \right)^{N} \\
 	Q &= \left( 2 \pi \frac{1}{\beta H \mu} \left(e^{\beta H\mu} - e^{-\beta H \mu}\right) \right)^{N} \\ 
-	Q &= \left( \frac{2 \pi }{\beta H \mu}\right)^N \left(e^{\beta H\mu} - e^{-\beta H \mu} \right)^{N} 
+	Q &= \left( \frac{2 \pi }{\beta H \mu}\right)^N \left(e^{\beta H\mu} - e^{-\beta H \mu} \right)^{N} \\
+	&= \left( \frac{2 \pi }{\beta H \mu}\right)^N \left(2\sinh(\beta H \mu) \right)^{N}
 \end{align}
-This gives us a plausible Helmholtz free energy:
+To find the average magnetisation, we want to compute 
 \begin{align}
-	A &= -\frac{1}{\beta} \ln{Q} \\
-	&=  -\frac{1}{\beta} \ln(\left( \frac{2 \pi }{\beta H \mu}\right)^N \left(e^{\beta H\mu} - e^{-\beta H \mu} \right)^{N}) \\
-	&= - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right)
+	\left< M \right> &= \frac{1}{Q} \idotsint\limits_{N} \dd{\Omega_1} \dotsm  \dd{\Omega_N} \sum_{i = 1}^N \mu \cos\theta_i  e^{-\beta\ham(\cos\theta)} 
 \end{align}
-I think that implicit in the question is that we want to find the equilibrium $M$ for fixed $H$, which means that our natural potential will be the Gibbs free energy $G(T, H)$ rather than $A(T, M)$. We use $G = A - HM$:
 
+For each $\theta_i$, we have $N - 1$ copies of the integral we already did for $Q$ with no $\cos \theta_i$ in the integrand, and so we can write this as 
+\begin{align}
+	\left< M \right> &= \frac{1}{Q} \left( \frac{2 \pi }{\beta H \mu}\right)^{N-1} \left(2\sinh(\beta H \mu) \right)^{N-1} \sum_{i = 1}^N  \int \dd{\Omega_i} \mu \cos\theta_i  e^{-\beta\ham_i} 
+\end{align}
+There are $N$ identical integrals being summed together, and we can cancel out the terms in $Q$. Here, $\ham_i$ represents the contribution to the Hamiltonian of the $i$th atom. Every other part of the Hamiltonian has been integrated over.
+\begin{align}
+	\left< M \right> &= \frac{1}{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu) }  N \int \dd{\Omega_i} \mu \cos\theta_i  e^{-\beta\ham_i} \\
+	\frac{M}{N} &= \frac{\int \dd{\Omega_i} \mu \cos\theta_i  e^{-\beta\ham_i} }{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu)}
+\end{align}
+We've dropped the average brackets on $M$. Let's integrate:
+\begin{align}
+	\frac{M}{N} &= \frac{\int \dd{\phi} \dd{\theta} \sin\theta \mu \cos\theta  e^{H \beta \mu \cos\theta}}{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu)} \\
+	&= 2 \pi \mu \frac{\int_{-1}^{1} \dd(\cos\theta) \cos\theta  e^{H \beta \mu \cos\theta}}{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu)} \\
+	&= \frac{2 \pi \mu}{H \mu} \frac{\dv{}{\beta} \int_{-1}^{1} \dd(\cos\theta)  e^{H \beta \mu \cos\theta}}{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu)} \\
+	&= \frac{2 \pi \mu}{H \mu} \frac{\dv{}{\beta} \frac{1}{H \beta \mu} \left(e^{H \beta \mu } - e^{-H \beta \mu} \right)}{\frac{2 \pi }{\beta H \mu} 2\sinh(\beta H \mu)} \\
+	&= \frac{2 \pi \beta H \mu}{H^2 \mu} \frac{\dv{}{\beta} \frac{1}{\beta } \sinh(\beta H \mu)}{2 \pi \sinh(\beta H \mu)} \\
+	&= \frac{\beta }{H} \frac{ \frac{-1}{\beta ^2} \sinh(\beta H \mu) + \frac{1}{\beta} H \mu \cosh(\beta H \mu)}{ \sinh(\beta H \mu)} \\
+	&= \frac{1}{H} \frac{ H \mu \cosh(\beta H \mu) - \frac{1}{\beta} \sinh(\beta H \mu)}{\sinh(\beta H \mu)} \\
+	&= \frac{1}{H} \left(H \mu \coth(\beta H \mu) - \frac{1}{\beta} \right) \\
+	M &= \mu N \left( \coth(\beta H \mu) - \frac{1}{\beta \mu H} \right)
+\end{align}
+
+This is what we wanted to show.
+
+\subsection*{(b) Finding the susceptibility}
+We want to find $\chi = \pdv{M}{H}$ for low temperatures. The Taylor series for $\coth$ is $\coth(x) \approx \frac{1}{x} + \frac{x}{3}$. Plugging this in, we find
+
+\begin{align}
+	M &\approx \mu N \left( \frac{1}{\beta H \mu} + \frac{\beta H \mu}{3} - \frac{1}{\beta H \mu} \right)\\
+	M &\approx \frac{\mu N \beta H \mu}{3} \\
+	M &\approx \frac{\mu^2 N \beta H }{3}
+\end{align}
+
+This gives us $\chi \approx \frac{\mu^2 N \beta}{3}$.
+
+\subsection*{(c) Finding the Curie's law coefficient)}
+Rewriting $\beta$, we get 
 \begin{equation}
-	G = - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) - HM
+	\chi = \frac{\mu ^2 N}{3 \kb T},
 \end{equation}
-Now, we can minimise this with respect to $M$:
-\begin{align}
-	0 &= \dv{G}{M} \\
-	&= \dv{}{M} \left( - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) - HM \right) \\
-	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) + H + M \dv{H}{M} \\
-	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(2\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M} \\
-	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M}
-\end{align}
-This simplifies things a bit, noting that we can always drop the derivatives of constant factors in logarithms.
-\begin{align}
-	0 &= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M} \\
-	0 &= \frac{N}{\beta}  \left( H \frac{ -1}{H^2} \dv{H}{M} + \frac{\beta \mu }{\sinh(\beta H \mu)} \cosh(\beta H \mu ) \dv{H}{M} \right) + H + M \dv{H}{M} \\
-	0 &= \frac{N}{\beta} \dv{H}{M} \left( -\frac{1}{H} + \beta \mu \coth(\beta H \mu ) \right) + H + M \dv{H}{M}
-\end{align}	
-
-Solving for $M$:
-\begin{align}
-	M \dv{H}{M} &= - \frac{N}{\beta} \dv{H}{M} \left( -\frac{1}{H} + \beta \mu \coth(\beta H \mu ) \right) + H  
-\end{align}
+which satisfies Curie's law for $C = \frac{\mu^2 N}{3\kb}$
 
 \end{document}
