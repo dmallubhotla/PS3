@@ -1,10 +1,65 @@
 \documentclass[../../PS3.tex]{subfiles}
 
-% !TeX spellcheck = en_US
+% !TeX spellcheck = en_GB
 \begin{document}
 
 \section{Langevin Function}
 
-We are for this problem interested in considering a system with $N$ magnetic moments of magnitude $\mu$, where the $i$th moment is oriented at some angle $\theta_i$ from the vertical. Our Hamiltonian has an external field $H$, but no coupling between moments.
+We are for this problem interested in considering a system with $N$ magnetic moments of magnitude $\mu$, where the $i$th moment is oriented at some angle $\theta_i$ from the vertical. Our Hamiltonian has an external field $H$, but no coupling between moments:
+\begin{equation}
+	\ham = - H \sum_{n = 1}^{N} \mu \cos{\theta_n}
+\end{equation}
+
+I'm making a couple assumptions. We're not told that the moments are constrained to rotate within a particular plane, so I'm going to have each moment expressed with polar angle $\theta$, (which assumes the external field is in the $z$-direction). We want to begin by finding the equilibrium magnetisation $M$. 
+
+\subsection*{(a) Finding the magnetisation}
+I think we can start by trying to minimise the free energy. We can use $A = -\kb T \ln{Q}$. To find $Q$:
+\begin{align}
+	Q &= \idotsint\limits_{N} \dd{\Omega_1} \dotsm  \dd{\Omega_N} e^{-\beta\ham} \\
+	Q &= \idotsint\limits_{N} \dd{\Omega_1} \dotsm  \dd{\Omega_N} e^{\beta H \sum_{n = 1}^{N} \mu \cos{\theta_n}} \\
+	Q &= \idotsint\limits_{N} \dd{\Omega_1} \dotsm  \dd{\Omega_N} \prod_{n=1}^{N} e^{\beta H\mu \cos{\theta_n}} 
+\end{align}
+All the integrals are independent of one another, because of the lack of coupling. Additionally, each integral is the same. Thus,
+\begin{align}
+	Q &= \left( \int \dd{\Omega}e^{\beta H\mu \cos{\theta}} \right)^{N} \\
+	&= \left( \int_0^{\tpi} \dd{\phi} \int_{-1}^{1} \dd(\cos{\theta}) e^{\beta H\mu \cos{\theta}} \right)^{N}
+\end{align}
+This becomes
+\begin{align}
+	Q &= \left( 2 \pi \int_{-1}^{1} \dd(\cos{\theta}) e^{\beta H\mu \cos{\theta}} \right)^{N} \\
+	Q &= \left( 2 \pi \frac{1}{\beta H \mu} \left. e^{\beta H\mu \cos{\theta}} \right|_{-1}^{1} \right)^{N} \\
+	Q &= \left( 2 \pi \frac{1}{\beta H \mu} \left(e^{\beta H\mu} - e^{-\beta H \mu}\right) \right)^{N} \\ 
+	Q &= \left( \frac{2 \pi }{\beta H \mu}\right)^N \left(e^{\beta H\mu} - e^{-\beta H \mu} \right)^{N} 
+\end{align}
+This gives us a plausible Helmholtz free energy:
+\begin{align}
+	A &= -\frac{1}{\beta} \ln{Q} \\
+	&=  -\frac{1}{\beta} \ln(\left( \frac{2 \pi }{\beta H \mu}\right)^N \left(e^{\beta H\mu} - e^{-\beta H \mu} \right)^{N}) \\
+	&= - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right)
+\end{align}
+I think that implicit in the question is that we want to find the equilibrium $M$ for fixed $H$, which means that our natural potential will be the Gibbs free energy $G(T, H)$ rather than $A(T, M)$. We use $G = A - HM$:
+
+\begin{equation}
+	G = - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) - HM
+\end{equation}
+Now, we can minimise this with respect to $M$:
+\begin{align}
+	0 &= \dv{G}{M} \\
+	&= \dv{}{M} \left( - \frac{N}{\beta} \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) - HM \right) \\
+	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{2 \pi }{\beta H \mu}) + \ln(e^{\beta H\mu} - e^{-\beta H \mu} ) \right) + H + M \dv{H}{M} \\
+	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(2\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M} \\
+	&= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M}
+\end{align}
+This simplifies things a bit, noting that we can always drop the derivatives of constant factors in logarithms.
+\begin{align}
+	0 &= \frac{N}{\beta}  \dv{}{M}  \left( \ln(\frac{1}{H}) + \ln(\sinh(\beta H \mu ) ) \right) + H + M \dv{H}{M} \\
+	0 &= \frac{N}{\beta}  \left( H \frac{ -1}{H^2} \dv{H}{M} + \frac{\beta \mu }{\sinh(\beta H \mu)} \cosh(\beta H \mu ) \dv{H}{M} \right) + H + M \dv{H}{M} \\
+	0 &= \frac{N}{\beta} \dv{H}{M} \left( -\frac{1}{H} + \beta \mu \coth(\beta H \mu ) \right) + H + M \dv{H}{M}
+\end{align}	
+
+Solving for $M$:
+\begin{align}
+	M \dv{H}{M} &= - \frac{N}{\beta} \dv{H}{M} \left( -\frac{1}{H} + \beta \mu \coth(\beta H \mu ) \right) + H  
+\end{align}
 
 \end{document}

@@ -4,6 +4,60 @@
 
 \section{Molecules as Harmonic Oscillators}
 
+We're given a Hamiltonian 
+\begin{equation}
+	\ham = \frac{1}{2m} \sum_{n = 1}^N \left(p_n^2 + {p'}_n^2\right) + \frac{K}{2} \sum_{n = 1}^{N} \abs{r_n - {r'}_n}^2 
+\end{equation}
 
+We want to first find the partition function:
+\begin{align}
+	Q = \idotsint\limits_{4N} \dd[3]{\{p_i\}} \dd[3]{\{{p'}_i\}} \dd[3]{\{r_i\}} \dd[3]{\{{r'}_i\}} e^{-\beta \ham}
+\end{align}
+
+This is $N$ identical integrals, one for each particle:
+\begin{align}
+	Q = \left(\iiiint \dd[3]{p} \dd[3]{{p'}} \dd[3]{r} \dd[3]{{r'}} e^{-\beta \left( \frac{1}{2m}  \left(p_n^2 + {p'}_n^2\right) + \frac{K}{2} \abs{r_n - {r'}_n}^2 \right)}\right) ^N
+\end{align}
+It separates:
+\begin{align} \label{eq:prob3a:separatedA}
+	Q = \left(\left(\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2}\right)^2  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N
+\end{align}
+
+To evaluate this, let's start with the $p$ integrals, going right away to spherical coordinates:
+\begin{align}
+	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} &= 4\pi \int_0^{\infty} \dd{p} e^{-\frac{\beta}{2m} p^2} 
+\end{align}
+This is a Gaussian integral we can do.
+\begin{align}
+	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} = 4\pi \sqrt{\frac{m \pi}{2 \beta}}
+\end{align}
+Plugging back into \eqref{eq:prob3a:separatedA},
+\begin{align}
+	Q &= \left( \left(4\pi \sqrt{\frac{m \pi}{2 \beta}} \right)^2  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N \\
+	\label{eq:prob3a:pdone} Q &= \left( \frac{8 m \pi^3 }{ \beta}  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N	
+\end{align}
+I believe the standard trick for the $r$ integrals is to define a $\vec{q} = \vec{r} - \vec{r'}$ and integrate over $q$:
+\begin{align}
+	\int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 } &= V \int \dd[3]{q} e^{-\beta \frac{K}{2} q^2 }
+\end{align}
+The factor of volume roughly accounts for translation invariance (because each $q$ integral could take place with $r$ and $r'$ shifted by a constant vector, which must be accounted for). I'm not sure how valid that makes this result. If certain molecules could be displaced unrestrictedly far from the solid, I think other things would break. In any case, I'm adding a $V$. It makes the units work out too.
+\begin{align}
+	\int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 } &= V \int \dd[3]{q} e^{-\beta \frac{K}{2} q^2 }
+\end{align}
+Spherical coordinates:
+\begin{align}
+	\int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 } &= 4\pi V \int_0^{\infty} \dd{q} e^{-\beta \frac{K}{2} q^2 }
+	&= 4 \pi V \sqrt{\frac{\pi}{2 \beta K}}
+\end{align}
+Plugging this into \eqref{eq:prob3a:pdone}, we get
+\begin{align}
+	 Q &= \left( \frac{8 m \pi^3 }{ \beta}  4 \pi V \sqrt{\frac{\pi}{2 \beta K}} \right) ^N
+\end{align}
+
+We can find the Helmholtz free energy from that:
+\begin{align}
+	A &= -\frac{1}{\beta} \ln{Q} \\
+	&= - \frac{N}{\beta} \ln(\frac{8 m \pi^3 }{ \beta}  4 \pi V \sqrt{\frac{\pi}{2 \beta K}})
+\end{align}
 
 \end{document}
