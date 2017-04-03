@@ -25,16 +25,19 @@ It separates:
 
 To evaluate this, let's start with the $p$ integrals, going right away to spherical coordinates:
 \begin{align}
-	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} &= 4\pi \int_0^{\infty} \dd{p} e^{-\frac{\beta}{2m} p^2} 
+	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} &= 4\pi \int_0^{\infty} \dd{p} p^2 e^{-\frac{\beta}{2m} p^2} \\
+	&= 4\pi (-2m) \dv{}{\beta} \int_0^{\infty} \dd{p} e^{-\frac{\beta}{2m} p^2}
 \end{align}
 This is a Gaussian integral we can do.
 \begin{align}
-	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} = 4\pi \sqrt{\frac{m \pi}{2 \beta}}
+	\int \dd[3]{p} e^{-\frac{\beta}{2m} p^2} &= - 8 m \pi\dv{}{\beta} \sqrt{\frac{m \pi}{2 \beta}} \\
+	&= 4 m \pi \sqrt{\frac{m \pi}{2 \beta^3}} 
 \end{align}
 Plugging back into \eqref{eq:prob3a:separatedA},
 \begin{align}
-	Q &= \left( \left(4\pi \sqrt{\frac{m \pi}{2 \beta}} \right)^2  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N \\
-	\label{eq:prob3a:pdone} Q &= \left( \frac{8 m \pi^3 }{ \beta}  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N	
+	Q &= \left( \left(4 m \pi \sqrt{\frac{m \pi}{2 \beta^3}}  \right)^2  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N \\
+	&= \left( 16 m^2 \pi^2 \frac{m \pi}{2 \beta^3}    \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N \\	
+	\label{eq:prob3a:pdone} Q &= \left( \frac{8 m^3 \pi^3 }{ \beta^3}  \int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 }\right) ^N	
 \end{align}
 I believe the standard trick for the $r$ integrals is to define a $\vec{q} = \vec{r} - \vec{r'}$ and integrate over $q$:
 \begin{align}
@@ -46,18 +49,41 @@ The factor of volume roughly accounts for translation invariance (because each $
 \end{align}
 Spherical coordinates:
 \begin{align}
-	\int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 } &= 4\pi V \int_0^{\infty} \dd{q} e^{-\beta \frac{K}{2} q^2 }
-	&= 4 \pi V \sqrt{\frac{\pi}{2 \beta K}}
+	\int \dd[3]{r_i} \dd[3]{{r'}_i} e^{-\beta \frac{K}{2} \abs{r_n - {r'}_n}^2 } &= 4\pi V \int_0^{\infty} \dd{q} q^2 e^{-\beta \frac{K}{2} q^2 } \\
+	&= 4\pi \left(- \frac{2}{K} \right)V \dv{}{\beta} \int_0^{\infty} \dd{q} e^{-\beta \frac{K}{2} q^2 } \\
+	&= - \frac{8 \pi V}{K} \dv{}{\beta} \sqrt{\frac{\pi}{2 \beta K}} \\
+	&= \frac{4 \pi V}{K} \sqrt{\frac{\pi}{2 \beta^3 K}} \\
 \end{align}
 Plugging this into \eqref{eq:prob3a:pdone}, we get
 \begin{align}
-	 Q &= \left( \frac{8 m \pi^3 }{ \beta}  4 \pi V \sqrt{\frac{\pi}{2 \beta K}} \right) ^N
+	Q &= \left( \frac{8 m^3 \pi^3 }{ \beta^3} \frac{4 \pi V}{K} \sqrt{\frac{\pi}{2 \beta^3 K} }\right)^N	
 \end{align}
 
 We can find the Helmholtz free energy from that:
 \begin{align}
 	A &= -\frac{1}{\beta} \ln{Q} \\
-	&= - \frac{N}{\beta} \ln(\frac{8 m \pi^3 }{ \beta}  4 \pi V \sqrt{\frac{\pi}{2 \beta K}})
+	&= - \frac{N}{\beta} \ln(\frac{8 m^3 \pi^3 }{ \beta^3} \frac{4 \pi V}{K} \sqrt{\frac{\pi}{2 \beta^3 K} })
+\end{align}
+
+\subsection*{(b) Specific heat}
+The specific heat is $C_V = - T \pdv[2]{A}{T}$. Let's write $A$ in terms of $T$:
+\begin{align}
+	A &= - N \kb T \ln(8 m^3 \pi^3 \kb^3 T^3 \frac{4 \pi V}{K} \sqrt{\frac{\pi \kb^3 T^3}{2 K} }) \\
+	&= - N \kb T \ln(8 m^3 \pi^3 \kb^3 \frac{4 \pi V}{K} \sqrt{\frac{\pi \kb^3}{2 K}} T^3 T^{\flatfrac32}) \\
+	&= - N \kb T \ln(\xi T^{\flatfrac92})
+\end{align}
+Differentiating twice:
+\begin{align}
+	\pdv{A}{T} &= - N \kb \ln(\xi T ^{\flatfrac92}) - N \kb T \frac{1}{\xi T^{\flatfrac92}} \frac92 T^{\flatfrac72} \\ 
+	\pdv{A}{T} &= - N \kb \ln(\xi T ^{\flatfrac92}) - N \kb \frac{1}{\xi} \xi \frac9	2  	
+\end{align}
+and finally
+\begin{align}
+	C_V &= - T\pdv[2]{A}{T} \\
+	&= - T \pdv{}{T} \left( - N \kb \ln(\xi T ^{\flatfrac92}) - N \kb \frac{1}{\xi} \xi \frac9	2  	\right) \\
+	&= T \pdv{}{T} N \kb \ln(\xi T^{\flatfrac92}) \\
+	&= N \kb T \frac{1}{\xi T^{\flatfrac92}} \xi \frac92 T^{\flatfrac72} \\
+	&= \frac92 N \kb
 \end{align}
 
 \end{document}
